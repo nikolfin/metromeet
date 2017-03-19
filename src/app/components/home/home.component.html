@@ -1,0 +1,19 @@
+<div class="jumbotron text-center">
+	<div class="container">
+
+		<div *ngIf="!(isAuth$ | async)">
+			<h1>Авторизация</h1>		
+			<a (click)="login()">Вход</a>
+		</div>
+
+		<ul class="list-group" *ngIf="(isAuth$ | async)">
+			<li class="list-group-item" *ngFor="let user of users$ | async">
+				<a [routerLink]="['/user/'+user.$key]">
+					<img src="{{user.picture}}" alt="">
+					{{user.name.last}} {{user.name.first}}
+				</a>
+			</li>
+		</ul>
+
+	</div>
+</div>

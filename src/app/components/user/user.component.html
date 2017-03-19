@@ -1,0 +1,13 @@
+<div class="user-card" *ngIf="user$ | async">
+	<img src="{{(user$ | async).picture}}" alt="" class="user-card__photo">
+
+	<div class="user-card__text">
+		<h3 class="user-card__name">{{(user$ | async).name.first}} {{(user$ | async).name.last}}, {{(user$ | async).age}}</h3>
+		
+		<p>{{(user$ | async).about}}</p>
+		
+		<div class="user-card__tags">
+			<span class="badge badge-default" *ngFor="let tag of user$.tags | async">{{tag}}</span>
+		</div>
+	</div>
+</div>

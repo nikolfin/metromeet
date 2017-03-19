@@ -1,0 +1,11 @@
+.user-card {}
+.user-card__photo {
+	float: left;
+	margin: 0 30px 0 0;
+}
+.user-card__text {
+	overflow: auto;
+}
+.user-card__tags .badge {
+	margin-right: 10px
+}

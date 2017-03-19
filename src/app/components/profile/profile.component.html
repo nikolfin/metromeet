@@ -1,0 +1,7 @@
+<div class="user-card" *ngIf="isAuth">
+	<img src="{{(profile$ | async).photoURL}}" alt="" class="user-card__photo">
+
+	<div class="user-card__text">
+		<h3 class="user-card__name">{{(profile$ | async).displayName}}</h3>
+	</div>
+</div>
