@@ -5,11 +5,13 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { AuthService } from './services/auth.service';
+import { AuthGuard } from './login.service';
+import { routes } from './app.routes';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './components/login/login.component';
+import { EmailComponent } from './components/email/email.component';
+import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 export const firebaseConfig = {
@@ -20,33 +22,22 @@ export const firebaseConfig = {
   messagingSenderId: '589927416824',
 }
 
-const firebaseAuthConfig = {
-  provider: AuthProviders.Facebook,
-  method: AuthMethods.Popup
-};
-
-const appRoutes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'user/:id', component: UserComponent}
-]
-
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    NavbarComponent,
-    UserComponent,
+    LoginComponent,
+    EmailComponent,
+    SignupComponent,
     ProfileComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
-    RouterModule.forRoot(appRoutes)
+    AngularFireModule.initializeApp(firebaseConfig),
+    routes
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

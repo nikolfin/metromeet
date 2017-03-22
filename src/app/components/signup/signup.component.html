@@ -1,0 +1,6 @@
+<form #formData="ngForm" (ngSubmit)="onSubmit(formData)">
+	<input type="text" name="email" placeholder="email" (ngModel)="email" />
+	<input type="password" name="password" placeholder="password" (ngModel)="password" />
+
+	<button type="submit" [disabled]="!formData.valid">create account</button>
+</form>

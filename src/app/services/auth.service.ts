@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
-import 'rxjs/add/operator/mergeMap';
+import {
+	AngularFire,
+	FirebaseObjectObservable,
+	FirebaseListObservable,
+	AuthMethods,
+	AuthProviders
+} from 'angularfire2';
 
 // interfaces
-import { IUser, IRegisterData } from '../interfaces/user';
+import { INewUser, IRegisterData } from '../interfaces/user';
 
 @Injectable()
 
@@ -11,23 +16,41 @@ export class AuthService {
 
 	constructor(private _af: AngularFire) { }
 
-	login() {
-		this.getAuthState().login();
-	}
+	loginWithProvider(provider: string, loginData?: IRegisterData) {
 
-	logout() {
-		this.getAuthState().logout();
-	}
+		let currentProvider: Object;
 
-	getUsers() {
-		return this._af.database.list('/users') as FirebaseListObservable<IUser[]>
-	}
+		switch (provider) {
+			case 'fb':
+				currentProvider = {
+					provider: AuthProviders.Facebook,
+					method: AuthMethods.Popup
+				};
+				break;
+			case 'google':
+				currentProvider = {
+					provider: AuthProviders.Google,
+					method: AuthMethods.Popup
+				};
+				break;
+			case 'email':
+				currentProvider = {
+					provider: AuthProviders.Password,
+					method: AuthMethods.Password
+				};
+				break;
+			default:
+				null
+		}
 
-	getUser(id) {
-		return this._af.database.object('/users/'+id) as FirebaseObjectObservable<IUser>
+		return loginData ? this.getAuthState().login(currentProvider) : this.getAuthState().login(loginData, currentProvider);
 	}
 
 	getAuthState() {
 		return this._af.auth;
+	}
+
+	createNewUser(user: IRegisterData) {
+		return this._af.auth.createUser(user);
 	}
 }

@@ -1,26 +1,35 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import 'rxjs/add/operator/map';
 
 @Component({
 	selector: 'app-profile',
 	templateUrl: './profile.component.html',
 	styleUrls: ['./profile.component.css']
 })
-
 export class ProfileComponent implements OnInit {
 
-	isAuth: boolean;
-	profile$: any;
+	name: string;
+	email: string;
 
-	constructor(private _authService: AuthService) { }
+	constructor(
+		private _authService: AuthService,
+		private _router: Router
+	) { }
 
 	ngOnInit() {
 		this._authService.getAuthState().subscribe(authState => {
-			this.isAuth = authState ? true : false;
-			if (this.isAuth) {
-				this.profile$ = this._authService.getAuthState().map(authState => authState.facebook);
+			if (authState) {
+				this.name = authState.auth.displayName;
+				this.email = authState.auth.email;
 			}
-		});
+		})
 	}
+
+	logout() {
+		this._authService.getAuthState().logout();
+		console.log('logout');
+		this._router.navigateByUrl('/login');
+	}
+
 }
