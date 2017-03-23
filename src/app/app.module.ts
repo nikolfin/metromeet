@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { AuthService } from './services/auth.service';
-import { AuthGuard } from './login.service';
+import { AuthGuard } from './services/auth.guard.service';
 import { routes } from './app.routes';
 
 import { AppComponent } from './app.component';

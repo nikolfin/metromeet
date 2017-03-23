@@ -19,12 +19,13 @@ export class SignupComponent implements OnInit {
 
 	onSubmit(formData) {
 		if (formData.valid) {
-			console.log(formData.value);
 			this._authService.createNewUser({
 				email: formData.value.email,
 				password: formData.value.password
-			}).then(success => {
-				console.log(success);
+			}).then(newUserInfo => {
+				if (!newUserInfo.auth.emailVerified) {
+					newUserInfo.auth.sendEmailVerification();
+				}
 				this._router.navigate(['/login']);
 			}).catch(error => {
 				console.log(error);

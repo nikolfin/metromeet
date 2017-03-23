@@ -6,6 +6,7 @@ import {
 	AuthMethods,
 	AuthProviders
 } from 'angularfire2';
+import 'rxjs/add/operator/map';
 
 // interfaces
 import { INewUser, IRegisterData } from '../interfaces/user';
@@ -39,15 +40,20 @@ export class AuthService {
 					method: AuthMethods.Password
 				};
 				break;
-			default:
-				null
 		}
 
-		return loginData ? this.getAuthState().login(currentProvider) : this.getAuthState().login(loginData, currentProvider);
+		return loginData ? 
+			this.getAuthState().login(loginData, currentProvider) : 
+			this.getAuthState().login(currentProvider);
 	}
 
 	getAuthState() {
 		return this._af.auth;
+	}
+
+	isLogedIn() {
+		return this.getAuthState()
+			.map(authState => authState ? true : false);
 	}
 
 	createNewUser(user: IRegisterData) {

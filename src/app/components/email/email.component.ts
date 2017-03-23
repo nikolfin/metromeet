@@ -15,10 +15,8 @@ export class EmailComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this._authService.getAuthState().subscribe(authState => {
-			if (authState) {
-				this._router.navigateByUrl('/profile');
-			}
+		this._authService.isLogedIn().subscribe(isLogedIn => {
+			if (isLogedIn) this._router.navigateByUrl('/profile');
 		})
 	}
 
