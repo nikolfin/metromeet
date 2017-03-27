@@ -9,7 +9,7 @@ import {
 import 'rxjs/add/operator/map';
 
 // interfaces
-import { INewUser, IRegisterData } from '../interfaces/user';
+import { IRegisterData, INewUser } from '../interfaces/user';
 
 @Injectable()
 
@@ -58,5 +58,9 @@ export class AuthService {
 
 	createNewUser(user: IRegisterData) {
 		return this._af.auth.createUser(user);
+	}
+
+	referenceToUserItem(pathToUser : string) : FirebaseObjectObservable<INewUser> {
+		return this._af.database.object(pathToUser);
 	}
 }

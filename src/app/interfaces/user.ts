@@ -4,6 +4,7 @@ export interface IRegisterData {
 }
 export interface INewUser {
 	uid: string;
-	name: string;
-	photo: string;
+	name?: string;
+	photo?: string;
+	email: string;
 }

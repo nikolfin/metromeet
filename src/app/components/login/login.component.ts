@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
 	loginWith(provider: string) {
 		this._authService.loginWithProvider(provider).then(
-			(success) => {
+			(authUserInfo) => {
 				this._router.navigate(['/profile']);
 			},
 			(error) => {

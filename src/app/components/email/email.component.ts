@@ -26,7 +26,6 @@ export class EmailComponent implements OnInit {
 				email: formData.value.email,
 				password: formData.value.password
 			}).then(success => {
-				console.log(success);
 				this._router.navigate(['/login']);
 			}).catch(error => {
 				console.log(error);

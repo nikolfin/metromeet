@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
+import { INewUser } from '../../interfaces/user';
+
 @Component({
 	selector: 'app-profile',
 	templateUrl: './profile.component.html',
@@ -22,6 +24,16 @@ export class ProfileComponent implements OnInit {
 			if (authState) {
 				this.name = authState.auth.displayName;
 				this.email = authState.auth.email;
+
+				let newUser : INewUser = {
+					uid: authState.uid,
+					name: authState.auth.displayName,
+					photo: authState.auth.photoURL,
+					email: authState.auth.email
+				}
+
+				this._authService
+					.referenceToUserItem('users/' + authState.uid).set(newUser);
 			}
 		})
 	}
@@ -31,5 +43,4 @@ export class ProfileComponent implements OnInit {
 		console.log('logout');
 		this._router.navigateByUrl('/login');
 	}
-
 }
