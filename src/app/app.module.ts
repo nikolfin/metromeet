@@ -7,6 +7,7 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth.guard.service';
 import { routes } from './app.routes';
+import { MdlModule } from 'angular2-mdl';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -35,7 +36,8 @@ export const firebaseConfig = {
     FormsModule,
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    routes
+    routes,
+    MdlModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
